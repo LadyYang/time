@@ -1,0 +1,76 @@
+/*
+ * @Description: 按钮组件样式
+ * @Author: chtao
+ * @Github: https://github.com/LadyYang
+ * @Email: 1763615252@qq.com
+ * @Date: 2020-08-05 09:54:24
+ * @LastEditTime: 2020-08-05 11:36:30
+ * @LastEditors: chtao
+ * @FilePath: \time\components\Button.module.css
+ */
+.btn {
+  height: 32px;
+  position: relative;
+  border-radius: 2px;
+  box-shadow: 0 0 4px #bbb, inset 0 0 2px #fff;
+  text-align: center;
+  white-space: nowrap;
+
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+  padding: 4px 15px;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  transition: all 0.5s;
+}
+
+.btn[class*='btn-primary']:hover {
+  opacity: 0.7;
+}
+
+.btn:not([class*='btn-primary'])[class*='btn-dangerous']:hover {
+  color: #ff4d4f;
+  background: #fff;
+  border-color: #ff4d4f;
+  box-shadow: 0 0 3px #ff4d4f;
+}
+
+.btn:not([class*='btn-primary']):hover {
+  color: #40a9ff;
+  background: #fff;
+  box-shadow: 0 0 3px #40a9ff, inset 0 0 1px #40a9ff;
+}
+
+.btn-dangerous:not([class*='btn-primary']) {
+  color: #ff4d4f;
+  background: #fff;
+  border-color: #ff4d4f;
+}
+
+.btn-primary {
+  color: #fff;
+  background: #1890ff;
+  border-color: #1890ff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+.btn-primary[class*='btn-dangerous'] {
+  color: #fff;
+  background: #ff4d4f;
+  border-color: #ff4d4f;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+.btn.btn-disable {
+  cursor: not-allowed;
+  color: #666;
+  background: #f5f5f5;
+  border-color: #d9d9d9;
+  text-shadow: none;
+  box-shadow: none;
+  opacity: 1;
+}

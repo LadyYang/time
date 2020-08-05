@@ -1,0 +1,21 @@
+.input {
+  border: 1px solid #ccc;
+  box-shadow: 0 0 1px #ccc, inset 0 0 #ccc;
+  transition: all 0.6s;
+  padding: 8px;
+  display: flex;
+}
+
+.input:hover {
+  border: 1px solid #40a9ff;
+  box-shadow: 0 0 1px #40a9ff, inset 0 0 1px #fff;
+}
+
+.icon {
+  user-select: none;
+}
+
+.input input {
+  flex: 1;
+  padding-left: 0.5rem;
+}

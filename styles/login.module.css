@@ -1,0 +1,27 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: absolute;
+  top: 39%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding: 15px;
+  box-shadow: 0 0 2px #ccc, 1px 1px 5px #ccc;
+  border-radius: 5px;
+
+  min-width: 35rem;
+  min-height: 32rem;
+}
+
+.item {
+  display: flex;
+}
+
+.item span {
+  flex-basis: 100px;
+}
+
+.item input {
+}
