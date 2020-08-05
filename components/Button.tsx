@@ -4,16 +4,16 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-05 09:54:24
- * @LastEditTime: 2020-08-05 12:29:21
+ * @LastEditTime: 2020-08-05 17:39:44
  * @LastEditors: chtao
  * @FilePath: \time\components\Button.tsx
  */
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, HTMLProps } from 'react';
 
 import styles from './Button.module.css';
 import { mergeClass } from '../utils';
 
-interface ButtonProps {
+interface ButtonProps extends HTMLProps<HTMLDivElement> {
   onClick?: () => void;
   disable?: boolean;
   type?: 'default' | 'primary';

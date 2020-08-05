@@ -1,21 +1,40 @@
 .input {
+  position: relative;
   border: 1px solid #ccc;
   box-shadow: 0 0 1px #ccc, inset 0 0 #ccc;
   transition: all 0.6s;
+
+  height: 40px;
   padding: 8px;
   display: flex;
 }
 
-.input:hover {
+/* 没有警告时 hover 选中 */
+.input:not([class*='warn']):hover {
   border: 1px solid #40a9ff;
   box-shadow: 0 0 1px #40a9ff, inset 0 0 1px #fff;
 }
 
 .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   user-select: none;
 }
 
 .input input {
   flex: 1;
+
   padding-left: 0.5rem;
+}
+
+.warn {
+  border: 1px solid #f40;
+}
+
+.tip {
+  height: 1.8rem;
+  padding-top: 3px;
+  font-size: 1.1rem;
+  color: #f40;
 }

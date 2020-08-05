@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 import Logo_ from '../public/logo.svg';
 
-const Logo = () => {
+interface LogoProps {
+  styles?: CSSProperties;
+}
+
+const Logo: React.FC<LogoProps> = ({ styles = {} }) => {
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: 'center', ...styles }}>
       <Logo_ />
     </div>
   );

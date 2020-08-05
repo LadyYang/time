@@ -8,6 +8,8 @@ module.exports = {
       use: ['@svgr/webpack'],
     });
 
+    // config.plugins.push(new )
+
     return config;
   },
 };
