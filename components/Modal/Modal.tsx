@@ -4,7 +4,7 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-06 00:24:26
- * @LastEditTime: 2020-08-06 16:17:40
+ * @LastEditTime: 2020-08-06 16:22:56
  * @LastEditors: chtao
  * @FilePath: \time\components\Modal\Modal.tsx
  */
@@ -19,7 +19,7 @@ export interface ModalProps {
   visible: boolean;
   title: string;
 
-  onCancle?: () => void;
+  onCancel?: () => void;
   onOk?: () => void;
 }
 
@@ -27,23 +27,25 @@ const Modal: React.FC<ModalProps> = ({
   children,
   visible,
   title,
-  onCancle,
+  onCancel: onCancel,
   onOk,
 }) => {
   // server-side render
   if (!isBrowser()) return null;
 
+  // 蒙层
   const mask = useMemo(() => {
     const div = document.createElement('div');
     div.classList.add('mask', styles.container);
     return div;
   }, []);
 
+  // 切换显示 Modal， 同时按下 Esc 会执行 onCancel 方法
   useEffect(() => {
     if (visible) {
       document.onkeydown = e => {
-        if (e.key === 'Escape' && onCancle) {
-          onCancle();
+        if (e.key === 'Escape' && onCancel) {
+          onCancel();
         }
       };
       mask.classList.add(styles['show-modal']);
@@ -53,6 +55,7 @@ const Modal: React.FC<ModalProps> = ({
     }
   }, [visible]);
 
+  // 将 mask 加入到 body 中
   useEffect(() => {
     document.body.appendChild(mask);
 
@@ -66,7 +69,7 @@ const Modal: React.FC<ModalProps> = ({
       {/* header */}
       <div className={styles.header}>
         <div className={styles.title}>{title}</div>
-        <div className={styles['close-btn']} onClick={onCancle}>
+        <div className={styles['close-btn']} onClick={onCancel}>
           <i className='iconfont'>&#xe625;</i>
         </div>
       </div>
@@ -76,8 +79,8 @@ const Modal: React.FC<ModalProps> = ({
 
       {/* footer  */}
       <div className={styles.footer}>
-        {onCancle && (
-          <Button onClick={onCancle} className={styles.btn}>
+        {onCancel && (
+          <Button onClick={onCancel} className={styles.btn}>
             取消
           </Button>
         )}

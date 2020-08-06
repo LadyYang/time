@@ -4,7 +4,7 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-05 07:56:40
- * @LastEditTime: 2020-08-06 00:30:13
+ * @LastEditTime: 2020-08-06 15:07:04
  * @LastEditors: chtao
  * @FilePath: \time\pages\login.tsx
  */
@@ -107,7 +107,7 @@ const login = () => {
               tip: { ...input.tip, username: '' },
             })
           }
-          icon={<i className='iconfont'>&#xe66d;</i>}
+          icon={<i className='iconfont'>&#xe657;</i>}
           tipText={input.tip.username}
         />
 
@@ -121,7 +121,7 @@ const login = () => {
               tip: { ...input.tip, password: '' },
             })
           }
-          icon={<i className='iconfont'>&#xe657;</i>}
+          icon={<i className='iconfont'>&#xe66c;</i>}
           tipText={input.tip.password}
         />
 

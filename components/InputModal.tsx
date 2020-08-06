@@ -5,10 +5,10 @@ import Input from './Input';
 interface InputModalProps {
   visible: boolean;
   onOk: (...args: any[]) => void;
-  onCancle: () => void;
+  onCancel: () => void;
 }
 
-const InputModal: React.FC<InputModalProps> = ({ onCancle, onOk, visible }) => {
+const InputModal: React.FC<InputModalProps> = ({ onCancel, onOk, visible }) => {
   const [input, setInput] = useState({
     data: { title: '', date: '', time: '' },
     tip: { title: '', date: '', time: '' },
@@ -53,7 +53,7 @@ const InputModal: React.FC<InputModalProps> = ({ onCancle, onOk, visible }) => {
         visible={visible}
         title='添加活动时间'
         onOk={handleSubmit}
-        onCancle={onCancle}
+        onCancel={onCancel}
       >
         <div
           style={{
