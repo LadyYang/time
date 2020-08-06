@@ -4,7 +4,7 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-06 00:24:26
- * @LastEditTime: 2020-08-06 14:41:30
+ * @LastEditTime: 2020-08-06 16:17:40
  * @LastEditors: chtao
  * @FilePath: \time\components\Modal\Modal.tsx
  */
@@ -36,14 +36,21 @@ const Modal: React.FC<ModalProps> = ({
   const mask = useMemo(() => {
     const div = document.createElement('div');
     div.classList.add('mask', styles.container);
-
     return div;
   }, []);
 
   useEffect(() => {
-    visible
-      ? mask.classList.add(styles['show-modal'])
-      : mask.classList.remove(styles['show-modal']);
+    if (visible) {
+      document.onkeydown = e => {
+        if (e.key === 'Escape' && onCancle) {
+          onCancle();
+        }
+      };
+      mask.classList.add(styles['show-modal']);
+    } else {
+      document.onkeydown = null;
+      mask.classList.remove(styles['show-modal']);
+    }
   }, [visible]);
 
   useEffect(() => {
