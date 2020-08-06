@@ -10,7 +10,8 @@
 }
 
 /* 没有警告时 hover 选中 */
-.input:not([class*='warn']):hover {
+.input:not([class*='warn']):hover,
+.input:focus-within {
   border: 1px solid #40a9ff;
   box-shadow: 0 0 1px #40a9ff, inset 0 0 1px #fff;
 }
