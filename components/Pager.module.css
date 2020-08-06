@@ -1,0 +1,105 @@
+.pager {
+  font-size: 1.6rem;
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  user-select: none;
+}
+
+.item {
+  font-size: 2rem;
+  display: inline-block;
+  cursor: pointer;
+  min-width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  border-radius: 2px;
+  border: 1px solid #d9d9d9;
+}
+
+.item:hover,
+.item.active {
+  color: #1890ff;
+  border: 1px solid #1890ff;
+}
+
+.ellipsesContainer {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+@keyframes hide-ellipses {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes show-prev2 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.prev2,
+.next2,
+.ellipses {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 1s;
+}
+
+.prev2,
+.next2 {
+  color: #1890ff;
+  opacity: 0;
+}
+
+.ellipses {
+  opacity: 1;
+}
+
+.ellipsesContainer:hover .prev2 {
+  opacity: 1;
+}
+
+.ellipsesContainer:hover .next2 {
+  opacity: 1;
+}
+
+.ellipsesContainer:hover .ellipses {
+  opacity: 0;
+}
+
+.ellipsesContainer:hover .next2::before,
+.ellipsesContainer:hover .prev2::before {
+  font-size: 1.2rem;
+  position: absolute;
+  text-align: left;
+  bottom: 18px;
+  left: -10px;
+  color: #4f4f4f;
+  width: 100px;
+}
+
+.ellipsesContainer:hover .prev2::before {
+  content: '前进3页';
+}
+
+.ellipsesContainer:hover .next2::before {
+  content: '后退3页';
+}
