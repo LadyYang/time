@@ -4,6 +4,8 @@
   box-shadow: 0 0 1px #ccc, inset 0 0 #ccc;
   transition: all 0.6s;
 
+  border-radius: 2px;
+
   height: 40px;
   padding: 8px;
   display: flex;
