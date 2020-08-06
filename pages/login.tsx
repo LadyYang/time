@@ -4,7 +4,7 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-05 07:56:40
- * @LastEditTime: 2020-08-05 19:42:45
+ * @LastEditTime: 2020-08-06 00:30:13
  * @LastEditors: chtao
  * @FilePath: \time\pages\login.tsx
  */
@@ -20,6 +20,7 @@ import config from '../config';
 
 const login = () => {
   const router = useRouter();
+  const [logining, setLogining] = useState(false);
   const [input, setInput] = useState({
     data: { username: '', password: '' },
     // 提示内容
@@ -50,12 +51,16 @@ const login = () => {
       {
         username: input.data.username,
         password: jwt.sign(input.data.password, config.privateKey),
-        time: Date.now(),
+        // 防止窃取数据
+        expired: Date.now() + 1000,
       },
       config.privateKey
     );
 
-    // login
+    // 正在登录
+    setLogining(true);
+
+    // login fetch data
     try {
       const resp = await (
         await fetch('/api/login', {
@@ -75,6 +80,8 @@ const login = () => {
       if (resp.code === 101) {
         setInput({ ...input, tip: { username: '', password: resp.message } });
       }
+
+      setLogining(false);
     } catch (e) {
       console.log(e);
     }
@@ -87,9 +94,9 @@ const login = () => {
         if (e.key === 'Enter') handleLogin();
       }}
     >
-      <Logo styles={{ flex: 2 }} />
+      <Logo styles={{ flex: 1 }} />
 
-      <div className={styles['input-box']} style={{ flex: 3 }}>
+      <div className={styles['input-box']} style={{ flex: 1 }}>
         <Input
           type='text'
           placeholder='用户名'
@@ -100,7 +107,7 @@ const login = () => {
               tip: { ...input.tip, username: '' },
             })
           }
-          icon={<i className='iconfont'>&#xe66c;</i>}
+          icon={<i className='iconfont'>&#xe66d;</i>}
           tipText={input.tip.username}
         />
 
@@ -118,7 +125,12 @@ const login = () => {
           tipText={input.tip.password}
         />
 
-        <Button type='primary' style={{ height: 40 }} onClick={handleLogin}>
+        <Button
+          type='primary'
+          style={{ height: 40 }}
+          onClick={handleLogin}
+          disable={logining}
+        >
           登录
         </Button>
       </div>

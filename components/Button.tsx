@@ -4,7 +4,7 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-05 09:54:24
- * @LastEditTime: 2020-08-05 17:39:44
+ * @LastEditTime: 2020-08-06 14:24:54
  * @LastEditors: chtao
  * @FilePath: \time\components\Button.tsx
  */
@@ -29,6 +29,7 @@ const Button: React.FC<ButtonProps> = ({
   danger = false,
   style,
   disable = false,
+  className = null,
 }) => {
   return (
     <div
@@ -37,7 +38,8 @@ const Button: React.FC<ButtonProps> = ({
         styles.btn,
         type === 'primary' ? styles['btn-primary'] : null,
         danger ? styles['btn-dangerous'] : null,
-        disable ? styles['btn-disable'] : null
+        disable ? styles['btn-disable'] : null,
+        className
       )}
       onClick={disable ? () => {} : onClick}
     >

@@ -8,7 +8,14 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({ styles = {} }) => {
   return (
-    <div style={{ textAlign: 'center', ...styles }}>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        ...styles,
+      }}
+    >
       <Logo_ />
     </div>
   );
