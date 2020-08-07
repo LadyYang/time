@@ -22,8 +22,9 @@ const activity: NextApiHandler = async (req, res) => {
         }
       case 'get':
         if (req.method === 'GET') {
-          const search: any = req.query;
-          result = await ActivityDao.getData(+search.offset, +search.limit);
+          const offset = req.query.offset || 0;
+          const limit = req.query.limit || 10;
+          result = await ActivityDao.getData(+offset, +limit);
           break;
         }
       case 'set':

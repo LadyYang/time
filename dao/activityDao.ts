@@ -52,6 +52,14 @@ export default class ActivityDao {
       throw Error('时间不正确');
     }
 
+    const result = await ActivityModel.findOne({
+      where: { title: body.title },
+    });
+
+    if (result) {
+      throw Error('title 已存在');
+    }
+
     return ActivityModel.upsert({
       title: body.title,
       time: new Date(body.time),
