@@ -2,7 +2,8 @@
  * 将所有类名组合起来
  * @param names
  */
-export const mergeClass = (...names: Array<string | null>) => names.join(' ');
+export const mergeClass = (...names: Array<string | null | undefined>) =>
+  names.join(' ');
 
 export const isBrowser = () => typeof window !== 'undefined';
 
@@ -34,4 +35,34 @@ export const loading = {
     // to do ....
   },
   close() {},
+};
+
+/**
+ * 格式化显示时间
+ * @param time 默认为当前时间戳
+ */
+export const formatDate = (time: Date | number | string = Date.now()) => {
+  time = new Date(time);
+  const t = new Intl.DateTimeFormat('zh-u-chinese', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  });
+
+  return t.format(time);
+};
+
+export const getCookie = (key: string) => {
+  let start = document.cookie.indexOf(key + '=');
+  let len = start + key.length + 1;
+  if (!start && key !== document.cookie.substring(0, key.length)) {
+    return null;
+  }
+  if (start === -1) return null;
+  let end = document.cookie.indexOf(';', len);
+  if (end === -1) end = document.cookie.length;
+  return unescape(document.cookie.substring(len, end));
 };

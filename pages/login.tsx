@@ -4,7 +4,7 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-05 07:56:40
- * @LastEditTime: 2020-08-06 15:07:04
+ * @LastEditTime: 2020-08-06 21:36:22
  * @LastEditors: chtao
  * @FilePath: \time\pages\login.tsx
  */
@@ -12,11 +12,14 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import jwt from 'jsonwebtoken';
 
-import styles from '../styles/login.module.css';
+import Button from '../components/Button';
 import Logo from '../components/Logo';
 import Input from '../components/Input';
-import Button from '../components/Button';
 import config from '../config';
+
+import { doLogin } from '../server';
+
+import styles from '../styles/login.module.css';
 
 const login = () => {
   const router = useRouter();
@@ -62,12 +65,7 @@ const login = () => {
 
     // login fetch data
     try {
-      const resp = await (
-        await fetch('/api/login', {
-          method: 'POST',
-          body: token,
-        })
-      ).json();
+      const resp = await doLogin(token);
 
       if (resp.code === 0) {
         router.replace('/index.tsx', '/');
@@ -98,6 +96,7 @@ const login = () => {
 
       <div className={styles['input-box']} style={{ flex: 1 }}>
         <Input
+          tip
           type='text'
           placeholder='用户名'
           value={input.data.username}
@@ -107,11 +106,13 @@ const login = () => {
               tip: { ...input.tip, username: '' },
             })
           }
-          icon={<i className='iconfont'>&#xe657;</i>}
+          leftIcon={<i className='iconfont'>&#xe657;</i>}
           tipText={input.tip.username}
+          autoFocus
         />
 
         <Input
+          tip
           type='password'
           placeholder='密码'
           value={input.data.password}
@@ -121,7 +122,7 @@ const login = () => {
               tip: { ...input.tip, password: '' },
             })
           }
-          icon={<i className='iconfont'>&#xe66c;</i>}
+          leftIcon={<i className='iconfont'>&#xe66c;</i>}
           tipText={input.tip.password}
         />
 

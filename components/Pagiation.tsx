@@ -4,16 +4,16 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-05 20:54:55
- * @LastEditTime: 2020-08-06 13:34:00
+ * @LastEditTime: 2020-08-07 13:30:39
  * @LastEditors: chtao
- * @FilePath: \time\components\Pager.tsx
+ * @FilePath: \time\components\Pagiation.tsx
  */
 import React from 'react';
 
-import styles from './Pager.module.css';
+import styles from './Pagination.module.css';
 import { mergeClass } from '../utils';
 
-interface PagerProps {
+interface PaginationProps {
   /** 页码改变的时触发 */
   onChange(index: number): void;
 
@@ -36,7 +36,7 @@ interface PagerProps {
  * 之后根据数组判断渲染页码还是省略号。
  * @param param0
  */
-const Pager: React.FC<PagerProps> = ({
+const Pagination: React.FC<PaginationProps> = ({
   onChange,
   total,
   mid = 3,
@@ -166,6 +166,10 @@ const Pager: React.FC<PagerProps> = ({
       >
         <i className='iconfont'>&#xe731;</i>
       </span>
+
+      <span className={styles.pages}>
+        {current} / {total}
+      </span>
     </div>
   );
 
@@ -216,4 +220,4 @@ const Pager: React.FC<PagerProps> = ({
   }
 };
 
-export default Pager;
+export default Pagination;

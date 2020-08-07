@@ -4,7 +4,7 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-05 14:30:12
- * @LastEditTime: 2020-08-05 17:08:20
+ * @LastEditTime: 2020-08-07 13:34:39
  * @LastEditors: chtao
  * @FilePath: \time\models\index.ts
  */
@@ -20,7 +20,7 @@ const sequelize = new Sequelize({
   port: config.db.port,
   dialect: 'mysql',
   logging: false,
-  timezone: '+08:00',
+  // timezone: '+08:00',
 });
 
 export default sequelize;

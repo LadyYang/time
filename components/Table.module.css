@@ -1,0 +1,44 @@
+.table {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  border-bottom: 1px solid #ccc;
+  font-weight: 600;
+  background-color: #e4e4e4b2;
+}
+
+.row {
+  border-bottom: 1px solid #eee;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  /* cursor: pointer; */
+}
+
+/* .row:hover {
+  background-color: rgba(32, 178, 171, 0.3);
+} */
+
+.column {
+  text-align: center;
+  padding: 10px;
+  word-break: break-all;
+}
+
+.main > div:last-child {
+  border-bottom: none;
+}
+
+.tip {
+  font-size: 1.8rem;
+  text-align: center;
+  padding: 10px 0;
+}
