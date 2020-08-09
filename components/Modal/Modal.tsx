@@ -4,7 +4,7 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-06 00:24:26
- * @LastEditTime: 2020-08-06 16:22:56
+ * @LastEditTime: 2020-08-09 21:20:41
  * @LastEditors: chtao
  * @FilePath: \time\components\Modal\Modal.tsx
  */
@@ -27,7 +27,7 @@ const Modal: React.FC<ModalProps> = ({
   children,
   visible,
   title,
-  onCancel: onCancel,
+  onCancel,
   onOk,
 }) => {
   // server-side render

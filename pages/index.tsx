@@ -4,11 +4,11 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-05 07:39:09
- * @LastEditTime: 2020-08-07 15:02:55
+ * @LastEditTime: 2020-08-09 21:57:35
  * @LastEditors: chtao
  * @FilePath: \time\pages\index.tsx
  */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 
 import Button from '../components/Button';
 import Modal from '../components/Modal';
@@ -52,69 +52,114 @@ const index = () => {
   // fetch
   useEffect(() => {
     fetchData();
+    console.log('mounted');
+
+    return () => console.log('unmounted');
   }, []);
 
   // 表格的每一列
-  const columns = [
-    { title: '序号', key: 'num', dataIndex: 'id' },
-    { title: '标题', key: 'title', dataIndex: 'title' },
-    {
-      title: '时间',
-      key: 'time',
-      dataIndex: 'time',
-      render: (time: string) => <span>{formatDate(time)}</span>,
-    },
-    {
-      title: '操作',
-      key: 'id',
-      dataIndex: 'id',
-      render: (_: any, col: any) => {
-        // 解构出每一行的 日期和时间
-        const [date, time] = formatDate(col.time).split(' ');
-
-        return (
-          <div className={styles.action}>
-            <Button
-              danger
-              type='primary'
-              onClick={() =>
-                setWarn({ show: true, content: '确定删除 ?', whichId: col.id })
-              }
-            >
-              删除
-            </Button>
-            <Button
-              type='primary'
-              onClick={() => {
-                // 将当前行数据传递给 InputModal
-                // 达到编辑的功能
-                setEditData({
-                  title: col.title,
-                  date: date.replace(/\//g, '-'),
-                  time,
-                  id: col.id,
-                });
-                setShowInputModal(true);
-              }}
-            >
-              编辑
-            </Button>
-          </div>
-        );
+  const columns = useMemo(
+    () => [
+      { title: '序号', key: 'num', dataIndex: 'id' },
+      { title: '标题', key: 'title', dataIndex: 'title' },
+      {
+        title: '时间',
+        key: 'time',
+        dataIndex: 'time',
+        render: (time: string) => <span>{formatDate(time)}</span>,
       },
-    },
-  ];
+      {
+        title: '操作',
+        key: 'id',
+        dataIndex: 'id',
+        render(_: any, col: any) {
+          const [date, time] = formatDate(col.time).split(' ');
 
-  const handleSearch = async (val: string) => {
+          //#region 不要使用这种方式，不然此组件卸载时，会导致父组件也卸载
+          // useEffect(() => {
+          //   console.log('mounted');
+
+          //   return () => console.log('unmounted');
+          // }, []);
+          // // 解构出每一行的 日期和时间
+          // const handleClick = useRef({
+          //   del() {
+          //     setWarn({
+          //       show: true,
+          //       content: '确定删除 ?',
+          //       whichId: col.id,
+          //     });
+          //   },
+          //   edit() {
+          //     // 将当前行数据传递给 InputModal
+          //     // 达到编辑的功能
+          //     setEditData({
+          //       title: col.title,
+          //       date: date.replace(/\//g, '-'),
+          //       time,
+          //       id: col.id,
+          //     });
+          //     setShowInputModal(true);
+          //   },
+          // });
+          //#endregion
+
+          return (
+            <div className={styles.action}>
+              <Button
+                danger
+                type='primary'
+                onClick={() => {
+                  setWarn({
+                    show: true,
+                    content: '确定删除 ?',
+                    whichId: col.id,
+                  });
+                }}
+              >
+                删除
+              </Button>
+              <Button
+                type='primary'
+                onClick={() => {
+                  // 将当前行数据传递给 InputModal
+                  // 达到编辑的功能
+                  setEditData({
+                    title: col.title,
+                    date: date.replace(/\//g, '-'),
+                    time,
+                    id: col.id,
+                  });
+                  setShowInputModal(true);
+                }}
+              >
+                编辑
+              </Button>
+
+              {/* <Button danger type='primary' onClick={handleClick.current.del}>
+                删除
+              </Button>
+              <Button type='primary' onClick={handleClick.current.edit}>
+                编辑
+              </Button> */}
+            </div>
+          );
+        },
+      },
+    ],
+    []
+  );
+
+  const handleSearch = useCallback(async (val: string) => {
     const resp = await doSearch(val);
 
     if (resp.code === 0) {
       setDataSource(resp.result.data || []);
-      setPage({ ...page, total: resp.result.total });
+      setPage(prev => ({ ...prev, total: resp.result.total }));
     } else {
       alert(resp.message);
     }
-  };
+  }, []);
 
   const handleDelete = async () => {
     setWarn(defaultWarnData);
@@ -152,7 +197,7 @@ const index = () => {
     handleCancelModal();
   }, []);
 
-  const handlePageChange = (i: number) => {
+  const handlePageChange = useCallback((i: number) => {
     const offset = (i - 1) * page.limit;
 
     fetchData(offset, page.limit);
@@ -160,7 +205,7 @@ const index = () => {
     // 这里更新要使用函数的形式
     // 不然 fetchData 中再 setPage 时，会覆盖
     setPage(prev => ({ ...prev, current: i }));
-  };
+  }, []);
 
   async function fetchData(offset: number = 0, limit: number = 10) {
     const resp = await getActivityData(offset, limit);
@@ -177,13 +222,13 @@ const index = () => {
     <div className={styles.home}>
       {/* search */}
       <SearchBox
-        onAdd={() => setShowInputModal(true)}
+        onAdd={useCallback(() => setShowInputModal(true), [])}
         onSearch={handleSearch}
       />
 
       {/* 表格 */}
       <Table
-        style={{ width: '80%' }}
+        className={styles.table}
         dataSource={dataSource}
         columns={columns}
         // 数据库中的主键是 id

@@ -4,7 +4,7 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-05 20:54:55
- * @LastEditTime: 2020-08-07 13:30:39
+ * @LastEditTime: 2020-08-09 21:17:04
  * @LastEditors: chtao
  * @FilePath: \time\components\Pagiation.tsx
  */
@@ -220,4 +220,4 @@ const Pagination: React.FC<PaginationProps> = ({
   }
 };
 
-export default Pagination;
+export default React.memo(Pagination);
