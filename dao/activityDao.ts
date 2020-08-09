@@ -52,12 +52,16 @@ export default class ActivityDao {
       throw Error('时间不正确');
     }
 
-    const result = await ActivityModel.findOne({
-      where: { title: body.title },
-    });
+    console.log(body.id);
+    // 添加 判断 title 是否已经存在
+    if (!body.id) {
+      const result = await ActivityModel.findOne({
+        where: { title: body.title },
+      });
 
-    if (result) {
-      throw Error('title 已存在');
+      if (result) {
+        throw Error('title 已存在');
+      }
     }
 
     return ActivityModel.upsert({
