@@ -27,3 +27,11 @@
 .item span {
   flex-basis: 100px;
 }
+
+.logo {
+  flex: 1;
+}
+
+.btn {
+  height: 40px;
+}

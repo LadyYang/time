@@ -17,6 +17,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   tip?: boolean;
 }
 
+const arr: any[] = [];
+
 const Input: React.FC<InputProps> = ({
   leftIcon,
   tipText,
@@ -25,6 +27,8 @@ const Input: React.FC<InputProps> = ({
   tip = false,
   ...res
 }) => {
+  arr.push(tipText);
+  console.log(arr[0] === arr[arr.length - 1], arr.length);
   return (
     <div style={style}>
       <div className={mergeClass(styles.input, tipText ? styles.warn : null)}>
@@ -37,4 +41,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default React.memo(Input);

@@ -4,9 +4,10 @@ import Logo_ from '../public/logo.svg';
 
 interface LogoProps {
   styles?: CSSProperties;
+  className?: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ styles = {} }) => {
+const Logo: React.FC<LogoProps> = ({ styles = {}, className }) => {
   return (
     <div
       style={{
@@ -15,6 +16,7 @@ const Logo: React.FC<LogoProps> = ({ styles = {} }) => {
         alignItems: 'center',
         ...styles,
       }}
+      className={className}
     >
       <Logo_ />
     </div>

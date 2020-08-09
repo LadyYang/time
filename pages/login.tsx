@@ -4,11 +4,11 @@
  * @Github: https://github.com/LadyYang
  * @Email: 1763615252@qq.com
  * @Date: 2020-08-05 07:56:40
- * @LastEditTime: 2020-08-06 21:36:22
+ * @LastEditTime: 2020-08-09 20:26:11
  * @LastEditors: chtao
  * @FilePath: \time\pages\login.tsx
  */
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import jwt from 'jsonwebtoken';
 
@@ -20,6 +20,9 @@ import config from '../config';
 import { doLogin } from '../server';
 
 import styles from '../styles/login.module.css';
+
+const passwordLeftIcon = <i className='iconfont'>&#xe66c;</i>;
+const usernameLeftIcon = <i className='iconfont'>&#xe657;</i>;
 
 const login = () => {
   const router = useRouter();
@@ -85,6 +88,23 @@ const login = () => {
     }
   };
 
+  const handleChangePassword = useCallback(v => {
+    // setInput 是异步的，这里使用闭包，保存 target
+    const target = v.target;
+    setInput(prev => ({
+      data: { ...prev.data, password: target.value.trim() },
+      tip: { ...prev.tip, password: '' },
+    }));
+  }, []);
+
+  const handleChangeUsername = useCallback(v => {
+    const target = v.target;
+    setInput(prev => ({
+      data: { ...prev.data, username: target.value.trim() },
+      tip: { ...prev.tip, username: '' },
+    }));
+  }, []);
+
   return (
     <div
       className={styles.login}
@@ -92,7 +112,7 @@ const login = () => {
         if (e.key === 'Enter') handleLogin();
       }}
     >
-      <Logo styles={{ flex: 1 }} />
+      <Logo className={styles.logo} />
 
       <div className={styles['input-box']} style={{ flex: 1 }}>
         <Input
@@ -100,13 +120,8 @@ const login = () => {
           type='text'
           placeholder='用户名'
           value={input.data.username}
-          onChange={v =>
-            setInput({
-              data: { ...input.data, username: v.target.value.trim() },
-              tip: { ...input.tip, username: '' },
-            })
-          }
-          leftIcon={<i className='iconfont'>&#xe657;</i>}
+          onChange={handleChangeUsername}
+          leftIcon={usernameLeftIcon}
           tipText={input.tip.username}
           autoFocus
         />
@@ -116,19 +131,14 @@ const login = () => {
           type='password'
           placeholder='密码'
           value={input.data.password}
-          onChange={v =>
-            setInput({
-              data: { ...input.data, password: v.target.value.trim() },
-              tip: { ...input.tip, password: '' },
-            })
-          }
-          leftIcon={<i className='iconfont'>&#xe66c;</i>}
+          onChange={handleChangePassword}
+          leftIcon={passwordLeftIcon}
           tipText={input.tip.password}
         />
 
         <Button
           type='primary'
-          style={{ height: 40 }}
+          className={styles.btn}
           onClick={handleLogin}
           disable={logining}
         >
